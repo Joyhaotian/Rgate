@@ -1,56 +1,278 @@
-# R-GATE: Radar-Camera Fusion Pipeline
+# R-GATE: Radar as Physical Evidence for Camera–Radar 3D Object Detection
 
-Welcome to the official repository for **R-GATE**! This project provides a robust, reliable fusion and evaluation pipeline for radar-camera 3D object detection on the nuScenes dataset.
+R-GATE is a **diagnosis-driven, decision-level arbitration framework** for camera–radar 3D object detection on the [nuScenes](https://www.nuscenes.org/) dataset.
 
-## 🌟 Overview
+Rather than retraining another large perception network, R-GATE operates on cached predictions from frozen camera and camera–radar experts. It combines cross-expert agreement with physically interpretable radar evidence, including radar support, spatial context, radar cross section (RCS), and ego-motion-compensated planar-velocity agreement.
 
-R-GATE (Reliability-Aware Gating) addresses the challenge of combining dense, high-resolution camera data with sparse, noisy, but geometrically accurate radar data. This repository contains the complete scientific core and evaluation scripts used to reproduce the R-GATE fusion results.
+This repository contains the scientific replay and evaluation code used for the R-GATE experiments, including expert-result fusion, radar-sidecar construction, arbiter training, calibration, official nuScenes evaluation, multi-seed replay, and paired scene-bootstrap analysis.
 
-### Key Features
-- **Reliability-Aware Fusion**: Dynamically arbitrates between camera and radar proposals based on estimated radar reliability.
-- **Score Calibration**: Integrates BGE (Background Generation Error) and AF (Assertion Failure) metrics to calibrate confidence scores.
-- **Deterministic Evaluation**: Wraps the official nuScenes detection evaluator for strict, reproducible NDS and mAP calculations.
-- **Paired Scene Bootstrap**: Provides statistical significance testing tools for multi-seed performance analysis.
+---
+
+## 🌟 Highlights
+
+* **Diagnosis-first design**
+  Recall, score-ranking, and centre-localisation diagnostics are used to identify where the baseline detector still contains recoverable headroom.
+
+* **Multi-expert arbitration**
+  Frozen camera and camera–radar detector outputs are combined using source-specific confidence trust and geometry trust.
+
+* **Explicit radar evidence**
+  Candidate-level radar features include support count and density, spatial summaries, RCS statistics, and compensated planar-velocity agreement.
+
+* **Lightweight learned arbiter**
+  A compact MLP re-scores candidate hypotheses without retraining the underlying 3D perception networks.
+
+* **Reproducible evaluation**
+  The repository provides locked configurations, bundle verification, synthetic smoke tests, official nuScenes evaluation utilities, and multi-seed statistical replay tools.
+
+---
 
 ## 📁 Repository Structure
 
-- `configs/` - Example configurations for running the pipeline.
-- `models/` - Public-normalized learned artifacts and model checkpoints (across 5 random seeds).
-- `scripts/` - Core execution scripts (fusion, cache building, arbiter training, bootstrap analysis).
-- `tools/` - Utility scripts including the official nuScenes evaluator wrapper.
-- `tests/` - Synthetic smoke tests and structural verification.
-
-## 🚀 Getting Started
-
-### 1. Environment Setup
-The project supports Conda for easy environment management. You can create the environment using the provided lock files:
-```bash
-conda create --name rgate --file requirements-core.txt
+```text
+Rgate/
+├── configs/        # Example and locked experiment configurations
+├── models/         # Public-normalized learned artifacts across random seeds
+├── scripts/        # Fusion, cache construction, arbiter training and analysis
+├── tools/          # Evaluation and supporting utilities
+├── tests/          # Synthetic smoke tests and structural verification
+├── requirements-core.txt
+└── verify_bundle.py
 ```
 
-### 2. Running Verification & Smoke Tests
-To ensure the repository is structurally sound and your environment is set up correctly, run the synthetic smoke test and bundle verifier:
-```bash
-# Verify file closure, hashes, and artifact receipts
-python verify_bundle.py
+---
 
-# Run pure-standard-library synthetic tests
+# 🚀 Installation
+
+## 1. Clone the repository
+
+```bash
+git clone https://github.com/Joyhaotian/Rgate.git
+cd Rgate
+```
+
+## 2. Create a Python environment
+
+A dedicated Conda environment is recommended:
+
+```bash
+conda create -n rgate python=3.10 -y
+conda activate rgate
+```
+
+## 3. Install the required dependencies
+
+```bash
+python -m pip install --upgrade pip
+pip install -r requirements-core.txt
+```
+
+> Depending on the experiment you want to reproduce, additional dependencies required by the original detector repositories or the official nuScenes devkit may also be needed.
+
+## 4. Verify the installation
+
+Run the repository bundle verifier:
+
+```bash
+python verify_bundle.py
+```
+
+Then run the synthetic smoke tests:
+
+```bash
 python tests/synthetic_smoke.py
 ```
 
-### 3. Core Scientific Replay
-To fully replay the pipeline, you will need:
-1. The official nuScenes dataset (v1.0).
-2. The initial camera expert result JSONs.
+These tests are intended to verify the repository structure and core execution paths before running experiments that depend on the full nuScenes dataset.
 
-Once downloaded, you can use the scripts in `scripts/` (such as `fuse_nuscenes_expert_results.py`) to run the fusion and evaluation.
+---
 
-## 📊 Evaluation Metrics
-This project uses the official nuScenes detection metrics. The primary metrics evaluated are:
-* **NDS** (nuScenes Detection Score)
-* **mAP** (mean Average Precision)
+# 📦 External Data and Predictions
 
-We strictly separate radar and no-radar baselines to analyze the exact contribution of the R-GATE fusion.
+The complete scientific replay requires external resources that are **not distributed directly in this repository**.
 
-## 📜 License
-*Please refer to `LICENSE_PENDING.md` (or the finalized LICENSE file) for usage terms.*
+You will need:
+
+1. **nuScenes v1.0**
+2. The corresponding nuScenes metadata and detection-evaluation environment
+3. Cached prediction JSON files from the detector experts used by R-GATE
+4. The required experiment configurations and learned artifacts supplied in this repository
+
+The locked expert pool used in the dissertation consists of:
+
+* CRN ResNet-50 — camera + radar
+* RepDETR3D EVA02-L — camera
+* RepDETR3D VoVNet — camera
+* StreamPETR VoVNet — camera
+
+R-GATE operates on their exported nuScenes-format predictions; the underlying detector networks are not retrained by the arbitration pipeline.
+
+---
+
+# 🔬 Running the Scientific Replay
+
+The core scripts are located in:
+
+```text
+scripts/
+```
+
+For example, expert predictions can be combined using:
+
+```bash
+python scripts/fuse_nuscenes_expert_results.py \
+    [experiment arguments]
+```
+
+The exact inputs depend on the experiment configuration and the locations of the nuScenes data and cached expert predictions.
+
+For reproducibility, prefer using the supplied configuration files rather than manually reconstructing experiment parameters.
+
+---
+
+## Recommended Replay Workflow
+
+A typical R-GATE replay follows the sequence:
+
+```text
+Frozen expert predictions
+        ↓
+Prediction normalization / caching
+        ↓
+Candidate grouping
+        ↓
+Cross-expert evidence construction
+        ↓
+Radar-sidecar evidence construction
+        ↓
+Rule-based arbitration
+        ↓
+Learned arbiter
+        ↓
+Confidence calibration
+        ↓
+nuScenes-format prediction export
+        ↓
+Official nuScenes evaluation
+```
+
+The pipeline is designed so that most arbitration experiments can operate on cached detector outputs without repeatedly running the original large perception networks.
+
+---
+
+# 📊 Main Results
+
+The principal locked validation results reported in the dissertation are:
+
+| Configuration                               |     mAP ↑ |     NDS ↑ |    mAVE ↓ |
+| ------------------------------------------- | --------: | --------: | --------: |
+| CRN-R50 standalone                          |     47.24 |     56.17 |     0.274 |
+| Same-pool equal-vote WBF                    |     47.66 |     57.76 |     0.236 |
+| E1: trusted anchors + cross-expert re-score |     55.16 |     61.98 |     0.212 |
+| E2: + auxiliary-only retrieval              |     55.29 |     62.01 |     0.213 |
+| E3: + learned arbiter                       |     55.93 |     62.80 |     0.228 |
+| **E4: + calibration**                       | **55.91** | **62.82** | **0.227** |
+| E4NR: paired no-explicit-radar model        |     55.87 |     62.75 |     0.236 |
+
+Using the **same four frozen experts**, E4 improves over the equal-vote WBF baseline by:
+
+* **+8.26 mAP**
+* **+5.06 NDS points**
+
+The learned-arbiter step contributes a material improvement within the registered staircase, while auxiliary-only retrieval and calibration do not individually produce a material mAP gain.
+
+---
+
+# 📡 What Does Explicit Radar Evidence Add?
+
+The CRN base detector already consumes radar internally. Therefore, the E4 versus E4NR comparison measures only the **residual contribution of the explicit candidate-level radar evidence used by the R-GATE arbiter**.
+
+The observed paired difference is:
+
+* **+0.039 mAP**
+* **+0.068 NDS**
+* **−0.00919 mAVE**
+
+This should be interpreted as a small observed paired contrast rather than a statistically established standalone radar gain.
+
+The larger improvement of R-GATE over equal-vote WBF should therefore **not** be attributed solely to the explicit radar columns.
+
+---
+
+# 📏 Evaluation
+
+R-GATE uses the official nuScenes detection metrics.
+
+The principal reported metrics are:
+
+* **mAP** — mean Average Precision
+* **NDS** — nuScenes Detection Score
+* **mAVE** — mean Average Velocity Error
+
+Official evaluation should be performed using the same nuScenes split and evaluation configuration as the corresponding experiment.
+
+The repository also includes tools for:
+
+* deterministic evaluation replay,
+* provenance and bundle verification,
+* multi-seed experiment comparison,
+* paired scene-bootstrap analysis.
+
+---
+
+# ⚠️ Scope
+
+R-GATE is a **multi-expert arbitration system**, not a single-model detector.
+
+The headline result therefore demonstrates the value of diagnosis-driven arbitration over a fixed pool of available expert predictions. It should not be interpreted as a like-for-like single-model state-of-the-art comparison.
+
+Similarly, the explicit-radar ablation measures the marginal contribution of the registered radar-sidecar features after radar has already been consumed by the CRN base detector.
+
+---
+
+# 🧪 Reproducibility
+
+The project is designed around cached predictions and lightweight arbitration so that the decision-level experiments can be repeated without rerunning all detector inference.
+
+Where available, experiment outputs are associated with:
+
+* fixed configurations,
+* expert-pool manifests,
+* learned artifacts,
+* run metadata,
+* official nuScenes metric outputs,
+* provenance checks,
+* random-seed information.
+
+Please verify the repository bundle before scientific replay:
+
+```bash
+python verify_bundle.py
+```
+
+---
+
+# 📖 Citation
+
+If you use R-GATE or this repository in academic work, please cite the accompanying dissertation.
+
+```bibtex
+@mastersthesis{chen2026rgate,
+  author = {Haotian Chen},
+  title  = {R-GATE: Using Radar as Physical Evidence for Camera--Radar 3D Object Detection},
+  school = {University of Birmingham},
+  year   = {2026}
+}
+```
+
+---
+
+# 📜 License
+
+Please refer to `LICENSE_PENDING.md` or the finalized `LICENSE` file for the applicable usage terms.
+
+---
+
+## Acknowledgements
+
+This project builds upon the nuScenes benchmark and publicly released camera and camera–radar 3D detection models. Please also cite the original datasets, detector implementations, and model authors when using their corresponding resources.
