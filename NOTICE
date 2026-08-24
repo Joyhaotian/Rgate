@@ -1,0 +1,95 @@
+R-GATE reproducibility candidate
+
+Third-party software, data, and model artifacts
+
+This private candidate contains project pipeline scripts. It does not contain
+or redistribute (a) the nuScenes dataset or annotations, (b) nuScenes-derived
+expert prediction JSONs, (c) CRN, StreamPETR, or RepDETR3D source trees, or
+(d) any external checkpoint. Those materials are not licensed by R-GATE and
+must be obtained independently from the relevant upstream source.
+
+CRN
+
+Upstream code:
+https://github.com/youngskkim/CRN
+
+Registered reproduction revision:
+5e9d2fa2f91c714b297e75ca666d27fc4ad0d13d
+
+The upstream code repository carries the MIT License and the notice
+"Copyright (c) 2023 Youngseok Kim." If code from that repository is copied or
+redistributed, its applicable license and notices must be retained.
+
+The CRN-R50 checkpoint is not included. The official CRN README provides a
+model-zoo download link, but this notice does not assert that the repository
+code license governs that checkpoint or that the checkpoint may be mirrored or
+redistributed. Obtain it directly from upstream and review the terms applicable
+to the exact asset.
+
+StreamPETR and RepDETR3D
+
+Upstream code:
+https://github.com/exiawsh/StreamPETR
+
+Registered reproduction revision:
+95f64702306ccdb7a78889578b2a55b5deb35b2a
+
+The upstream README presents StreamPETR and RepDETR3D implementations and
+configurations in the same repository. The repository carries an Apache
+License 2.0 LICENSE file with its stated "Copyright (c) 2023 Megvii Inc. All
+rights reserved." notice. If upstream code is copied or redistributed, the
+applicable license, notices, and attribution requirements must be retained.
+
+The StreamPETR and RepDETR3D checkpoints are not included. Their official
+model-zoo links point to release assets hosted through
+https://github.com/exiawsh/storage. As of 2026-08-22, this audit did not identify
+a separate checkpoint-specific redistribution grant in the cited model-zoo
+pages or storage repository. R-GATE neither mirrors these assets nor grants
+permission to redistribute them. Obtain them directly from upstream and review
+the terms applicable to each exact asset.
+
+nuScenes devkit
+
+Upstream source:
+https://github.com/nutonomy/nuscenes-devkit
+
+Pinned runtime package:
+nuscenes-devkit==1.1.11
+
+The upstream source repository's LICENSE.txt states Apache License 2.0 and
+"Copyright 2021 Motional." The PyPI metadata published for version 1.1.11
+labels that distribution "Free for non-commercial use (apache-2.0)." This
+candidate does not vendor the devkit. This notice records but does not
+interpret that metadata difference; users must review the terms applicable to
+the exact source or package distribution they obtain.
+
+The devkit is software. Its license does not grant access to, or rights in, the
+nuScenes dataset.
+
+nuScenes dataset
+
+The nuScenes dataset, annotations, and expert prediction files are not
+included. Obtain the dataset through the official nuScenes access process and
+review the current terms at:
+
+https://www.nuscenes.org/terms-of-use
+https://www.nuscenes.org/nuscenes
+
+The official Terms page currently names CC BY-SA 4.0 while linking to a
+CC BY-NC-SA 4.0 legal-code URL. The official dataset page separately describes
+free dataset use as strictly non-commercial. Motional's additional Dataset
+Terms state that they prevail in a conflict and also apply to data derived from
+the dataset. This notice records but does not resolve those official wording
+differences.
+
+Users are responsible for determining whether their intended use,
+redistribution, or publication of dataset-derived artifacts is permitted under
+the terms applicable to them. Commercial or otherwise uncertain uses should be
+clarified directly with Motional. R-GATE does not sublicense the dataset.
+
+LightGBM, NumPy, and other runtime dependencies remain subject to their own
+upstream terms. Their complete attribution and transitive dependency closure
+remain a public-release gate.
+
+No third-party software, dataset, prediction artifact, or checkpoint is
+relicensed by this candidate.

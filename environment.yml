@@ -1,0 +1,8 @@
+name: rgate-repro
+channels:
+  - conda-forge
+dependencies:
+  - python=3.8.20
+  - pip
+  - pip:
+      - -r requirements-core.txt

@@ -1,0 +1,30 @@
+{
+  "schema_version": "rgate_public_repro_config_v1",
+  "status": "example_relative_paths_only",
+  "paths": {
+    "nuscenes_root": "data/nuscenes_raw",
+    "sample_info_pkl": "artifacts/metadata/sample_info.pkl",
+    "cache_jsonl": "artifacts/cache/fullval_cache.jsonl",
+    "cache_summary_json": "artifacts/cache/fullval_cache_summary.json",
+    "radar_model": "models/seed_00/radar_model.json",
+    "radar_calibration": "models/seed_00/radar_calibration.json",
+    "no_radar_model": "models/seed_00/no_radar_model.json",
+    "no_radar_calibration": "models/seed_00/no_radar_calibration.json",
+    "output_root": "outputs"
+  },
+  "expert_results_in_fixed_order": [
+    "artifacts/expert_results/expert_0.json",
+    "artifacts/expert_results/expert_1.json",
+    "artifacts/expert_results/expert_2.json",
+    "artifacts/expert_results/expert_3.json"
+  ],
+  "dataset": {
+    "version": "v1.0-trainval",
+    "evaluation_split": "val"
+  },
+  "notes": [
+    "Copy this file to an untracked local configuration before editing.",
+    "All paths must remain relative to the candidate root.",
+    "No dataset or expert file is distributed in this candidate."
+  ]
+}

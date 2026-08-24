@@ -1,0 +1,676 @@
+{
+  "schema_version": "rgate_release_artifact_manifest_v2",
+  "release_status": "not_ready_for_public_release",
+  "license_status": "pending_human_selection",
+  "double_blind_status": "private_local_candidate_only",
+  "normalization_contract": {
+    "schema_version": "rgate_release_metadata_normalization_v1",
+    "allowed_changed_json_pointers": {
+      "model": [
+        "/training/cache_jsonl"
+      ],
+      "calibration": [
+        "/cache_jsonl",
+        "/model"
+      ]
+    },
+    "required_public_proofs": [
+      "public_artifact_identity",
+      "source_inference_parameter_sha256",
+      "public_inference_parameter_sha256",
+      "fixture_equivalence_receipt_sha256"
+    ],
+    "rule": "Only the listed non-inference metadata fields may change. Canonical payload hashes after removing them must be identical, and a fixed-fixture equivalence receipt is required."
+  },
+  "public_artifacts": [
+    {
+      "id": "seed_00_no_radar_calibration",
+      "relative_path": "models/seed_00/no_radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15327,
+        "sha256": "82b1dd59bc76583b02cff023c88597fba74d62d816a8b0623676b3192eefc9af"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "d3911b5ad811d458b5f3784c1f5003950673f7d324d9e870e507cf2b3a5a2cb6",
+        "public_inference_parameter_sha256": "d3911b5ad811d458b5f3784c1f5003950673f7d324d9e870e507cf2b3a5a2cb6",
+        "fixture_equivalence_receipt_sha256": "adbf1e768cdfb9bd3ead1b49bc6ed72b8f1598c9047c04564a8da6e22b258b55"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_00_no_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1649,
+        "sha256": "adbf1e768cdfb9bd3ead1b49bc6ed72b8f1598c9047c04564a8da6e22b258b55"
+      }
+    },
+    {
+      "id": "seed_00_no_radar_model",
+      "relative_path": "models/seed_00/no_radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 11942,
+        "sha256": "bc193ff303ec0428c4968127da0f22c2e40508ccba36f8b29e7c5eabcb722438"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "c40d4571d270a0c9c37d8735fde192dfc8d460276995c736e19e99dd9722c318",
+        "public_inference_parameter_sha256": "c40d4571d270a0c9c37d8735fde192dfc8d460276995c736e19e99dd9722c318",
+        "fixture_equivalence_receipt_sha256": "967b9710ca7bdf868b66da56fa9bd91e24ebcf531593e0a0c8a0b6d2da498909"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_00_no_radar_model.normalization_receipt.json",
+        "size_bytes": 1624,
+        "sha256": "967b9710ca7bdf868b66da56fa9bd91e24ebcf531593e0a0c8a0b6d2da498909"
+      }
+    },
+    {
+      "id": "seed_00_radar_calibration",
+      "relative_path": "models/seed_00/radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15356,
+        "sha256": "b01377b76fd0f6d931d945bd62baf13a93d0a85bad6ae78ce2506a0079451feb"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "33577e35ecde5d706f1b436b924609213ad77600f8e85875f07d17b779203d93",
+        "public_inference_parameter_sha256": "33577e35ecde5d706f1b436b924609213ad77600f8e85875f07d17b779203d93",
+        "fixture_equivalence_receipt_sha256": "c5149d70787749e02963692fa044d8c09f7f3e2d30edb2f0cf5eee5bdc9abd65"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_00_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1643,
+        "sha256": "c5149d70787749e02963692fa044d8c09f7f3e2d30edb2f0cf5eee5bdc9abd65"
+      }
+    },
+    {
+      "id": "seed_00_radar_model",
+      "relative_path": "models/seed_00/radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 16336,
+        "sha256": "ed8c7a1d4c9f124381ae9a80a9af3ed1f74818b63f96983ebf3202d6cabc9534"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "65233bcb2228cd3eac63e6c3c001def2dd0db7bbc0075ce8a6bc00968795b9f9",
+        "public_inference_parameter_sha256": "65233bcb2228cd3eac63e6c3c001def2dd0db7bbc0075ce8a6bc00968795b9f9",
+        "fixture_equivalence_receipt_sha256": "2b0d03fe356a78fefd6c58f47299c5ee65a38afc2ad3d53f6ee82d14fbe29c95"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_00_radar_model.normalization_receipt.json",
+        "size_bytes": 1618,
+        "sha256": "2b0d03fe356a78fefd6c58f47299c5ee65a38afc2ad3d53f6ee82d14fbe29c95"
+      }
+    },
+    {
+      "id": "seed_01_no_radar_calibration",
+      "relative_path": "models/seed_01/no_radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15330,
+        "sha256": "7d191d38812ecf0d640c8636c12983dbd0f889c2776e0109b3c9134363f5170b"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "d1386dbad7c1c3fec472e9e863816c6dfcf2a4c57a686461509f258a881d5ac1",
+        "public_inference_parameter_sha256": "d1386dbad7c1c3fec472e9e863816c6dfcf2a4c57a686461509f258a881d5ac1",
+        "fixture_equivalence_receipt_sha256": "79d4dbcdf17b4efb12abe10571f8eed0162b03ef9f0ad65d9d3c2553f3d98e1b"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_01_no_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1649,
+        "sha256": "79d4dbcdf17b4efb12abe10571f8eed0162b03ef9f0ad65d9d3c2553f3d98e1b"
+      }
+    },
+    {
+      "id": "seed_01_no_radar_model",
+      "relative_path": "models/seed_01/no_radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 11969,
+        "sha256": "c27f09a1be21e5fdfc6670d30994896971328e92ae608b3c643462fd22e42578"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "7434713e6fc7146c346ccb2b058a603bcddf251823e876d4ee2dab36684c67de",
+        "public_inference_parameter_sha256": "7434713e6fc7146c346ccb2b058a603bcddf251823e876d4ee2dab36684c67de",
+        "fixture_equivalence_receipt_sha256": "8310bce2f8655e438bd3ace47bb12e1090a88c43a6b259d6fd04fe922a1e24b5"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_01_no_radar_model.normalization_receipt.json",
+        "size_bytes": 1624,
+        "sha256": "8310bce2f8655e438bd3ace47bb12e1090a88c43a6b259d6fd04fe922a1e24b5"
+      }
+    },
+    {
+      "id": "seed_01_radar_calibration",
+      "relative_path": "models/seed_01/radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15329,
+        "sha256": "0bf8066c85462ac0536f6c7cb5bef53578e20730ccb4ba5c63eeffa7208b3cff"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "7df7070a194898a7899329c4d1e70ad5e138b641ec6e8975b5d37f07cb64ad20",
+        "public_inference_parameter_sha256": "7df7070a194898a7899329c4d1e70ad5e138b641ec6e8975b5d37f07cb64ad20",
+        "fixture_equivalence_receipt_sha256": "ba832b961a764e5816919e692db6e642210fdd83dcaa0b7f5d0dd5df7a075c61"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_01_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1643,
+        "sha256": "ba832b961a764e5816919e692db6e642210fdd83dcaa0b7f5d0dd5df7a075c61"
+      }
+    },
+    {
+      "id": "seed_01_radar_model",
+      "relative_path": "models/seed_01/radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 16312,
+        "sha256": "c654a2d0a364a4216bce0e41cea92c342956b1cb2400b4957df05e1a8752fac3"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "acaaaee1b5275741477b1c08f440dce171b423a1e8aa3576bad508f849fd1eef",
+        "public_inference_parameter_sha256": "acaaaee1b5275741477b1c08f440dce171b423a1e8aa3576bad508f849fd1eef",
+        "fixture_equivalence_receipt_sha256": "e258e54fd658e76b7cd194d4fa56aa88928c77101bbe1365fbe0da7ecd576bde"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_01_radar_model.normalization_receipt.json",
+        "size_bytes": 1618,
+        "sha256": "e258e54fd658e76b7cd194d4fa56aa88928c77101bbe1365fbe0da7ecd576bde"
+      }
+    },
+    {
+      "id": "seed_02_no_radar_calibration",
+      "relative_path": "models/seed_02/no_radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15347,
+        "sha256": "11cc30d794e64d3e4384f0e7dff00014cf7c20c622a348b79f243bca05cdb3d0"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "bc892e77515b9e1dfdf72596b23faffb5455763bb08e9974141a645272013fde",
+        "public_inference_parameter_sha256": "bc892e77515b9e1dfdf72596b23faffb5455763bb08e9974141a645272013fde",
+        "fixture_equivalence_receipt_sha256": "6e2fac22762257bde1414729a5d69d24a5ce409a160a118039004c0f84b90910"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_02_no_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1649,
+        "sha256": "6e2fac22762257bde1414729a5d69d24a5ce409a160a118039004c0f84b90910"
+      }
+    },
+    {
+      "id": "seed_02_no_radar_model",
+      "relative_path": "models/seed_02/no_radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 11924,
+        "sha256": "edd85b16b430a6823b805a9e5160cd6cc1711a3fe158f144610e2cd982436626"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "4998f6828dd07aa9e4e30148d9f15bd40f539a0f515ad851777e35115f6e39b3",
+        "public_inference_parameter_sha256": "4998f6828dd07aa9e4e30148d9f15bd40f539a0f515ad851777e35115f6e39b3",
+        "fixture_equivalence_receipt_sha256": "96e1316f989bbc6def750215ad6a501ae025050608ad52aa0fe5d3980a1d3d1b"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_02_no_radar_model.normalization_receipt.json",
+        "size_bytes": 1624,
+        "sha256": "96e1316f989bbc6def750215ad6a501ae025050608ad52aa0fe5d3980a1d3d1b"
+      }
+    },
+    {
+      "id": "seed_02_radar_calibration",
+      "relative_path": "models/seed_02/radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15322,
+        "sha256": "fc487d20e0a5b16f366c245316b8ae132abc61c21f0a5825414bd6ee3d2a9933"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "f51b3c759304ae76b531a69121fd2c59644ff3213aa4ed3215c9acf7bd4dca14",
+        "public_inference_parameter_sha256": "f51b3c759304ae76b531a69121fd2c59644ff3213aa4ed3215c9acf7bd4dca14",
+        "fixture_equivalence_receipt_sha256": "05d7f2628db035d6e8c8623cf004d8a7744192205bcca24f59fab4fd77aefc98"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_02_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1643,
+        "sha256": "05d7f2628db035d6e8c8623cf004d8a7744192205bcca24f59fab4fd77aefc98"
+      }
+    },
+    {
+      "id": "seed_02_radar_model",
+      "relative_path": "models/seed_02/radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 16290,
+        "sha256": "af488736aaac51f54fecc269f3e5484b3ccb149fae2593c76e51e6c84df0cee4"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "755c795472227c25b2bab6067df9dccffb0063c819257eb66e8a315eb1bd960e",
+        "public_inference_parameter_sha256": "755c795472227c25b2bab6067df9dccffb0063c819257eb66e8a315eb1bd960e",
+        "fixture_equivalence_receipt_sha256": "99ca9644e9d1ec3960ebdd1c8e5febd02e8a16f0b494fb48a07dee3e998ef462"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_02_radar_model.normalization_receipt.json",
+        "size_bytes": 1618,
+        "sha256": "99ca9644e9d1ec3960ebdd1c8e5febd02e8a16f0b494fb48a07dee3e998ef462"
+      }
+    },
+    {
+      "id": "seed_03_no_radar_calibration",
+      "relative_path": "models/seed_03/no_radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15347,
+        "sha256": "8503ebfc1dc648f7371c47cbf11e4cbac0cb2398072060a483c921a50942ace7"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "f9dbb86a137e59c771284cc2565555ecea768a48cf9c79e20f1c3f7ec54f092a",
+        "public_inference_parameter_sha256": "f9dbb86a137e59c771284cc2565555ecea768a48cf9c79e20f1c3f7ec54f092a",
+        "fixture_equivalence_receipt_sha256": "1a24765532921a3381b6e4dfb6f1bf7a30f4d30821e280ae88df0fe2c6cc2be6"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_03_no_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1649,
+        "sha256": "1a24765532921a3381b6e4dfb6f1bf7a30f4d30821e280ae88df0fe2c6cc2be6"
+      }
+    },
+    {
+      "id": "seed_03_no_radar_model",
+      "relative_path": "models/seed_03/no_radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 11993,
+        "sha256": "835bd1c049c2e33cf9dd2b807dbc73373343f24acfa6adc0c979b763b97a9611"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "74a2b639224b374529c4ef0d204927f027c6bea2fe44c3758530fffa4a1352f3",
+        "public_inference_parameter_sha256": "74a2b639224b374529c4ef0d204927f027c6bea2fe44c3758530fffa4a1352f3",
+        "fixture_equivalence_receipt_sha256": "16237e043f016f41d6e7ada14b801c17f0206251e8452fc2aee299d47961431f"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_03_no_radar_model.normalization_receipt.json",
+        "size_bytes": 1624,
+        "sha256": "16237e043f016f41d6e7ada14b801c17f0206251e8452fc2aee299d47961431f"
+      }
+    },
+    {
+      "id": "seed_03_radar_calibration",
+      "relative_path": "models/seed_03/radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15334,
+        "sha256": "0ed0aa01203b4f23c6d7ac2408210cd9b046d4551e1a33dd6b8d14b49da58ed2"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "e14be7e44d65763e6c0fe7186483580513d7075831104a4c8e4fd880db93e1f5",
+        "public_inference_parameter_sha256": "e14be7e44d65763e6c0fe7186483580513d7075831104a4c8e4fd880db93e1f5",
+        "fixture_equivalence_receipt_sha256": "030cf78608b1efc1660106da9baf83de0eb44defac40ac37d1fc751aec7bd1f1"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_03_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1643,
+        "sha256": "030cf78608b1efc1660106da9baf83de0eb44defac40ac37d1fc751aec7bd1f1"
+      }
+    },
+    {
+      "id": "seed_03_radar_model",
+      "relative_path": "models/seed_03/radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 16362,
+        "sha256": "f6761de050d3c18fb5749506a9466e071f48e87fb7a88d5fbbb99ddd63d4eabe"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "32ad4afd26dce6dd5749332f05b499ae7b8c66aa09881c20937e3f453a066cb0",
+        "public_inference_parameter_sha256": "32ad4afd26dce6dd5749332f05b499ae7b8c66aa09881c20937e3f453a066cb0",
+        "fixture_equivalence_receipt_sha256": "e76c386beddfce98c0f8962ff7fd1536f186f67b19867cf08039d305b9b8bf7b"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_03_radar_model.normalization_receipt.json",
+        "size_bytes": 1618,
+        "sha256": "e76c386beddfce98c0f8962ff7fd1536f186f67b19867cf08039d305b9b8bf7b"
+      }
+    },
+    {
+      "id": "seed_04_no_radar_calibration",
+      "relative_path": "models/seed_04/no_radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15350,
+        "sha256": "d431e5bb9ba907b9b733dfcb6e9e31c226efd70a3d8d33baafe061829b70f888"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "0899940bddc2bd3b0fb4f577e397685dd7ead9783750f6abb59d85578ad49583",
+        "public_inference_parameter_sha256": "0899940bddc2bd3b0fb4f577e397685dd7ead9783750f6abb59d85578ad49583",
+        "fixture_equivalence_receipt_sha256": "008d3a5b8edc469ca09a22b38d26087d9adc26e27f8b0b09c0cba706eea9b037"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_04_no_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1649,
+        "sha256": "008d3a5b8edc469ca09a22b38d26087d9adc26e27f8b0b09c0cba706eea9b037"
+      }
+    },
+    {
+      "id": "seed_04_no_radar_model",
+      "relative_path": "models/seed_04/no_radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 11934,
+        "sha256": "d0774a7463c97c70a69955abc5e2432134c07f468931a9595056d5197a0b1422"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "aec90b4fcfae20667f9d8daa778f10ef672ef1832f00d7b1620c2c6da09d21e0",
+        "public_inference_parameter_sha256": "aec90b4fcfae20667f9d8daa778f10ef672ef1832f00d7b1620c2c6da09d21e0",
+        "fixture_equivalence_receipt_sha256": "f2856d580862918464acca5c7128f5c2fb891da2c44b8e56e521eddedb11241b"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_04_no_radar_model.normalization_receipt.json",
+        "size_bytes": 1624,
+        "sha256": "f2856d580862918464acca5c7128f5c2fb891da2c44b8e56e521eddedb11241b"
+      }
+    },
+    {
+      "id": "seed_04_radar_calibration",
+      "relative_path": "models/seed_04/radar_calibration.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 15331,
+        "sha256": "ae410bac79ab43a6dd9f2695e432475ff351d5bcfcc3f9c064202092e20cb408"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/cache_jsonl",
+          "/model"
+        ],
+        "source_inference_parameter_sha256": "10e9f0852c0810b2effd3acc9cafe5d2bb9978cca95b361d48c92178b0160f74",
+        "public_inference_parameter_sha256": "10e9f0852c0810b2effd3acc9cafe5d2bb9978cca95b361d48c92178b0160f74",
+        "fixture_equivalence_receipt_sha256": "33c540ee0bac98dae45ccaf5b158316912615b5f5b494eb8d69416fe75e18e67"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_04_radar_calibration.normalization_receipt.json",
+        "size_bytes": 1643,
+        "sha256": "33c540ee0bac98dae45ccaf5b158316912615b5f5b494eb8d69416fe75e18e67"
+      }
+    },
+    {
+      "id": "seed_04_radar_model",
+      "relative_path": "models/seed_04/radar_model.json",
+      "availability": "present_verified",
+      "public_artifact_identity": {
+        "size_bytes": 16298,
+        "sha256": "3ee7171f60b0c3bec4a855512cd9ce41a37b2e7fcb4a82f25950d3828f6f8e3f"
+      },
+      "normalization": {
+        "schema_version": "rgate_release_metadata_normalization_v1",
+        "changed_json_pointers": [
+          "/training/cache_jsonl"
+        ],
+        "source_inference_parameter_sha256": "7e369473e4b8a31c4ea933d36eb27850df2c555e3d19bd6cef0d8f7bb50423c6",
+        "public_inference_parameter_sha256": "7e369473e4b8a31c4ea933d36eb27850df2c555e3d19bd6cef0d8f7bb50423c6",
+        "fixture_equivalence_receipt_sha256": "face9cfb24b23deae9a4e473ce42adc8ebf89b22c60a2b44b95ca8082e6a77a0"
+      },
+      "normalization_receipt": {
+        "relative_path": "normalization_receipts/seed_04_radar_model.normalization_receipt.json",
+        "size_bytes": 1618,
+        "sha256": "face9cfb24b23deae9a4e473ce42adc8ebf89b22c60a2b44b95ca8082e6a77a0"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "seed_00_radar_model",
+      "relative_path": "models/seed_00/radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 21889,
+      "sha256": "49f0a7bd3cc8cab03f11da4c4ae8997f83d966f54744a32137892c5d2005a172"
+    },
+    {
+      "id": "seed_00_radar_calibration",
+      "relative_path": "models/seed_00/radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 20490,
+      "sha256": "52edd05f8af51bcd86021f20834654323c6c80432e807213a36ae9803f5e1946"
+    },
+    {
+      "id": "seed_00_no_radar_model",
+      "relative_path": "models/seed_00/no_radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 16103,
+      "sha256": "5d84c217937be2467c7a70d94197dd9d8c209c2ef3ba58d31227bceccb2f9125"
+    },
+    {
+      "id": "seed_00_no_radar_calibration",
+      "relative_path": "models/seed_00/no_radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 20464,
+      "sha256": "e0cf8b5af14ffdbb139b464aba957acfe4e5b4e9ae1ba77cd8cb61904a6591af"
+    },
+    {
+      "id": "seed_01_radar_model",
+      "relative_path": "models/seed_01/radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 21865,
+      "sha256": "2edaba2e6380f7adacc821f516e5f627ac14ebb3814fe977dc81394f5c0266a9"
+    },
+    {
+      "id": "seed_01_radar_calibration",
+      "relative_path": "models/seed_01/radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15467,
+      "sha256": "2ef343fe08cbbdc25dd21a4b07279cea48f3e34382284a3b66c4f4bd0b43cb3d"
+    },
+    {
+      "id": "seed_01_no_radar_model",
+      "relative_path": "models/seed_01/no_radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 16130,
+      "sha256": "d938a3658aff97f2b7b12513e3367b46b81e559b59b51bd503cd1b7bcbd3eed6"
+    },
+    {
+      "id": "seed_01_no_radar_calibration",
+      "relative_path": "models/seed_01/no_radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15471,
+      "sha256": "0a9c79502426e2ac07ec049567fd3faaf65a4a74532732339c0870e23ec9dd79"
+    },
+    {
+      "id": "seed_02_radar_model",
+      "relative_path": "models/seed_02/radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 21843,
+      "sha256": "16c432f39e58bd3d863cee22ba82722ee3eeebd39d4bde0d4ecdc1d786004797"
+    },
+    {
+      "id": "seed_02_radar_calibration",
+      "relative_path": "models/seed_02/radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15460,
+      "sha256": "8505cf7e9ddc3692eef4878cf9eca763b43fd5b0dc7945ea50bf345090c3bb0d"
+    },
+    {
+      "id": "seed_02_no_radar_model",
+      "relative_path": "models/seed_02/no_radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 16085,
+      "sha256": "1574dcaef79cdb8361e80afb76ff31cac305969589f72edae23cfa71b05be7d1"
+    },
+    {
+      "id": "seed_02_no_radar_calibration",
+      "relative_path": "models/seed_02/no_radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15488,
+      "sha256": "2f74963302957d055669f073999dae51d5c06b68bbdd41eb4785abd87d122a01"
+    },
+    {
+      "id": "seed_03_radar_model",
+      "relative_path": "models/seed_03/radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 21915,
+      "sha256": "5354084452d6a4a3bec9068d0d7e007174361c6a3b3f5d5f54de890623807c5b"
+    },
+    {
+      "id": "seed_03_radar_calibration",
+      "relative_path": "models/seed_03/radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15472,
+      "sha256": "1902a27c05264a7e196ab30808b504a2e996fdfc19b1792286f5594b7b53cc95"
+    },
+    {
+      "id": "seed_03_no_radar_model",
+      "relative_path": "models/seed_03/no_radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 16154,
+      "sha256": "065402dde03f8bc006868cb30de8d440e08e8f59965a03baf902044dc19cc139"
+    },
+    {
+      "id": "seed_03_no_radar_calibration",
+      "relative_path": "models/seed_03/no_radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15488,
+      "sha256": "249160b064f7a792bcd71003585d12c4bf69226c321b33b4b837ab05f84810aa"
+    },
+    {
+      "id": "seed_04_radar_model",
+      "relative_path": "models/seed_04/radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 21851,
+      "sha256": "bcc2f794f5ac2a421e6636c66d55145fcdf09a14affaedf9ff6e9231afa54812"
+    },
+    {
+      "id": "seed_04_radar_calibration",
+      "relative_path": "models/seed_04/radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15469,
+      "sha256": "a77f9255bf8e15752bc89a57cf56f802fdfa4721c63ea989e57da3c11089596f"
+    },
+    {
+      "id": "seed_04_no_radar_model",
+      "relative_path": "models/seed_04/no_radar_model.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 16095,
+      "sha256": "0134f54f449c078e0a7ac887449bc1ed8f600981a060e5c617000a5c13e7ecf0"
+    },
+    {
+      "id": "seed_04_no_radar_calibration",
+      "relative_path": "models/seed_04/no_radar_calibration.json",
+      "required": true,
+      "availability": "missing_pending_verified_copy",
+      "size_bytes": 15491,
+      "sha256": "c840b531d6ccacef339a75e6babb2335240f1a3af1678718eea94c89fc4764f9"
+    }
+  ],
+  "external_inputs": [
+    {
+      "role": "nuscenes_data",
+      "relative_path": "data/nuscenes_raw",
+      "distributed": false
+    },
+    {
+      "role": "four_expert_result_jsons",
+      "relative_path": "artifacts/expert_results",
+      "distributed": false
+    },
+    {
+      "role": "full_validation_cache",
+      "relative_path": "artifacts/cache",
+      "distributed": false
+    }
+  ]
+}

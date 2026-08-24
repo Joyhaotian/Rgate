@@ -1,0 +1,22 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+*.py[cod]
+*.log
+*.tmp
+.DS_Store
+.venv/
+data/
+outputs/
+artifacts/cache/
+artifacts/expert_results/
+artifacts/metadata/
+checkpoints/
+private/
+*.pth
+*.pt
+*.ckpt
+# Private source artifacts must never enter the public candidate. Normalized
+# public model JSON files are intentionally not ignored and must be tracked.
+models/private_source/
+models/**/*.science-source.json
