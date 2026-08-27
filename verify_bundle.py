@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fail-closed integrity and anonymity checks for this candidate directory."""
+"""Fail-closed integrity and publication-scope checks for this repository."""
 
 from __future__ import annotations
 
@@ -72,14 +72,9 @@ RUNTIME_PREFIXES = {
     ("artifacts", "metadata"),
 }
 TRANSIENT_DIR_NAMES = {"__pycache__", ".pytest_cache", ".mypy_cache"}
-CONTROL_FRAGMENTS = ("per" + "mit", "authori" + "zation", "authori" + "sation")
-IDENTITY_TOKEN_HASHES = {
-    "e8282ff5bc9660e4e46dd0b2fb8bee120962c07df8f6b065d64deb836e1d09b0",
-    "c5de273f692c1a02f7eb7c0ffe23ef54eb38a4b71e1f813a660ec33805a89ee1",
-    "3abd72ec6352d6085d85e34f0478dca7d14ef8048f3c1986e28106d654713946",
-    "4b801ba479505cac05eac972f403dd57153acd7ce7d66d78f924692427aa47e6",
-    "66123f95d3ed53ff1e576e839c4d761627ea59e0023f67ee4a94b92fc8e6845b",
-}
+PUBLIC_RELEASE_STATUS = "public_research_code_companion"
+PUBLIC_LICENSE_STATUS = "no_project_license_granted"
+PUBLIC_IDENTITY_STATUS = "public_identity_disclosed"
 SENSITIVE_ROOT_RE = re.compile(
     r"/(?:(?:" + "ho" + "me" + r")|(?:" + "m" + "nt" + r")|(?:" + "U" + "sers" + r"))(?:/|\b)",
     re.IGNORECASE,
@@ -449,12 +444,12 @@ def verify_artifacts(
         return
     if data.get("schema_version") != "rgate_release_artifact_manifest_v2":
         errors.append("unexpected artifact manifest schema")
-    if data.get("release_status") != "not_ready_for_public_release":
-        errors.append("candidate release status must remain not-ready")
-    if data.get("license_status") != "pending_human_selection":
-        errors.append("candidate license status must remain pending")
-    if data.get("double_blind_status") != "private_local_candidate_only":
-        errors.append("candidate double-blind status mismatch")
+    if data.get("release_status") != PUBLIC_RELEASE_STATUS:
+        errors.append("unexpected public release status")
+    if data.get("license_status") != PUBLIC_LICENSE_STATUS:
+        errors.append("unexpected project-license status")
+    if data.get("double_blind_status") != PUBLIC_IDENTITY_STATUS:
+        errors.append("unexpected public-identity status")
     contract = data.get("normalization_contract")
     if not isinstance(contract, dict) or contract.get("schema_version") != "rgate_release_metadata_normalization_v1":
         errors.append("invalid normalization contract")
@@ -648,9 +643,9 @@ def verify_json_and_relative_paths(errors: list[str]) -> None:
 
 def verify_release_state_documents(errors: list[str]) -> None:
     required_fragments = {
-        "README.md": ("not ready for public release", "private"),
-        "RELEASE_STATUS.md": ("status: **not_ready_for_public_release**", "license"),
-        "LICENSE_PENDING.md": ("no project license has been selected", "license grant"),
+        "README.md": ("research-code companion", "not a self-contained end-to-end reproducibility package"),
+        "RELEASE_STATUS.md": ("status: **public_research_code_companion**", "no project license"),
+        "NOTICE": ("public research-code archive", "not sublicense the dataset"),
     }
     for relative, fragments in required_fragments.items():
         try:
@@ -661,6 +656,8 @@ def verify_release_state_documents(errors: list[str]) -> None:
         for fragment in fragments:
             if fragment not in text:
                 errors.append("release-state document contract mismatch: %s" % relative)
+    if (ROOT / "LICENSE_PENDING.md").exists():
+        errors.append("obsolete pending-license document is present")
     try:
         ignore_lines = {
             line.strip() for line in (ROOT / ".gitignore").read_text(encoding="utf-8").splitlines()
@@ -673,7 +670,7 @@ def verify_release_state_documents(errors: list[str]) -> None:
         errors.append("public normalized model JSON files must not be ignored")
 
 
-def verify_anonymous_candidate(files: dict[str, Path], errors: list[str]) -> None:
+def verify_publication_safety(files: dict[str, Path], errors: list[str]) -> None:
     for relative, path in files.items():
         if path.suffix.lower() in PAPER_SUFFIXES:
             errors.append("paper-source file is excluded from this candidate: %s" % relative)
@@ -684,21 +681,12 @@ def verify_anonymous_candidate(files: dict[str, Path], errors: list[str]) -> Non
         except UnicodeDecodeError:
             errors.append("unexpected non-UTF-8 candidate file: %s" % relative)
             continue
-        lowered = text.lower()
         if SENSITIVE_ROOT_RE.search(text) or WINDOWS_ABSOLUTE_RE.search(text):
             errors.append("environment-specific absolute path found: %s" % relative)
         if EMAIL_RE.search(text):
             errors.append("email-like identifier found: %s" % relative)
         if SECRET_RE.search(text):
             errors.append("secret-like token found: %s" % relative)
-        # NOTICE records upstream license boundaries, where these ordinary
-        # legal words are expected; all identity/path/secret checks still run.
-        if path.name != "NOTICE" and any(fragment in lowered for fragment in CONTROL_FRAGMENTS):
-            errors.append("private execution-control term found: %s" % relative)
-        for token in re.findall(r"[A-Za-z0-9_]+", lowered):
-            if hashlib.sha256(token.encode("utf-8")).hexdigest() in IDENTITY_TOKEN_HASHES:
-                errors.append("identity marker found: %s" % relative)
-                break
 
 
 def verify_import_and_syntax_closure(errors: list[str]) -> None:
@@ -764,7 +752,7 @@ def main() -> int:
     verify_artifacts(args.allow_missing_models, errors, warnings)
     verify_json_and_relative_paths(errors)
     verify_release_state_documents(errors)
-    verify_anonymous_candidate(files, errors)
+    verify_publication_safety(files, errors)
     verify_import_and_syntax_closure(errors)
     if args.run_smoke:
         run_smoke(errors)

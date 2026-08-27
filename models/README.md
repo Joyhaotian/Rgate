@@ -1,6 +1,6 @@
 # Learned artifacts
 
-This fresh candidate contains all twenty public-normalized learned JSON
+This public research-code archive contains all twenty public-normalized learned JSON
 artifacts and their canonical normalization receipts. The original private
 scientific-source bytes are not included. Their immutable provenance
 identities remain in `ARTIFACT_MANIFEST.json` with

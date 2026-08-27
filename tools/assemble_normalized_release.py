@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble twenty audited normalization stages into a fresh candidate clone.
+"""Assemble twenty audited normalization stages into a public companion clone.
 
 The command is intentionally all-or-nothing.  It authenticates the source
 candidate, validates the complete one-stage-per-artifact set, builds every
@@ -24,6 +24,12 @@ from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
 
 MANIFEST_SCHEMA = "rgate_release_artifact_manifest_v2"
+PRIVATE_SOURCE_RELEASE_STATUS = "prepublication_candidate"
+PRIVATE_SOURCE_LICENSE_STATUS = "not_selected"
+PRIVATE_SOURCE_IDENTITY_STATUS = "anonymous_candidate"
+PUBLIC_RELEASE_STATUS = "public_research_code_companion"
+PUBLIC_LICENSE_STATUS = "no_project_license_granted"
+PUBLIC_IDENTITY_STATUS = "public_identity_disclosed"
 CONTRACT_SCHEMA = "rgate_release_metadata_normalization_v1"
 RECEIPT_SCHEMA = "rgate_release_normalization_receipt_v1"
 CANONICALIZATION = "utf8_json_sorted_keys_compact_no_nan_v1"
@@ -359,12 +365,12 @@ def _validate_source_manifest(files: Dict[str, bytes]) -> Tuple[Dict[str, Any], 
     manifest = load_json_bytes(payload, "source artifact manifest")
     if not isinstance(manifest, dict) or manifest.get("schema_version") != MANIFEST_SCHEMA:
         raise AssemblyError("unexpected source artifact manifest schema")
-    if manifest.get("release_status") != "not_ready_for_public_release":
-        raise AssemblyError("source candidate release state must remain not-ready")
-    if manifest.get("license_status") != "pending_human_selection":
-        raise AssemblyError("source candidate license selection is not pending")
-    if manifest.get("double_blind_status") != "private_local_candidate_only":
-        raise AssemblyError("source candidate double-blind state is not private")
+    if manifest.get("release_status") != PRIVATE_SOURCE_RELEASE_STATUS:
+        raise AssemblyError("source candidate release state is not prepublication")
+    if manifest.get("license_status") != PRIVATE_SOURCE_LICENSE_STATUS:
+        raise AssemblyError("source candidate license state is not prepublication")
+    if manifest.get("double_blind_status") != PRIVATE_SOURCE_IDENTITY_STATUS:
+        raise AssemblyError("source candidate identity state is not anonymous")
     contract = manifest.get("normalization_contract")
     if not isinstance(contract, dict) or contract.get("schema_version") != CONTRACT_SCHEMA:
         raise AssemblyError("unexpected normalization contract schema")
@@ -681,7 +687,7 @@ def _models_readme(
     lines = [
         "# Learned artifacts",
         "",
-        "This fresh candidate contains all twenty public-normalized learned JSON",
+        "This public research-code companion contains all twenty public-normalized learned JSON",
         "artifacts and their canonical normalization receipts. The original private",
         "scientific-source bytes are not included. Their immutable provenance",
         "identities remain in `ARTIFACT_MANIFEST.json` with",
@@ -721,87 +727,31 @@ def _models_readme(
 def _release_status() -> bytes:
     return (
         "# Release status\n\n"
-        "Status: **NOT_READY_FOR_PUBLIC_RELEASE**\n\n"
-        "Scope: local, private review only.\n\n"
-        "Closed artifact gate:\n\n"
-        "- all twenty learned JSON artifacts are present only in public-normalized form;\n"
-        "- all twenty source/public parameter and fixed-fixture receipts are registered;\n"
-        "- the private scientific-source identities remain preserved separately.\n\n"
-        "Open gates:\n\n"
-        "- no project license has been selected;\n"
-        "- the double-blind publication gate is still open;\n"
-        "- third-party dependency and checkpoint terms require final human review;\n"
-        "- a complete Linux transitive dependency lock has not been generated;\n"
-        "- private full-run orchestration was excluded and needs a clean public wrapper;\n"
-        "- no independent end-to-end replay has been completed from this directory.\n\n"
-        "The normalized artifacts close only the learned-artifact availability gate.\n"
-        "Public release still requires every open gate above to close, a clean-tree\n"
-        "re-audit, and a fresh human publication decision. Until then, do not push,\n"
-        "mirror, attach, or publish this directory.\n"
+        "Status: **PUBLIC_RESEARCH_CODE_COMPANION**\n\n"
+        "Scope: publicly readable R-GATE scripts, an example configuration template,\n"
+        "public-normalized learned artifacts and integrity checks accompanying the\n"
+        "dissertation.\n\n"
+        "This repository is not a self-contained end-to-end reproducibility package.\n"
+        "It does not include nuScenes data or annotations, cached expert predictions,\n"
+        "upstream detector source trees or checkpoints, or the original locked run\n"
+        "plans and full experiment inputs.\n\n"
+        "The twenty learned JSON artifacts are present only in public-normalized form.\n"
+        "Their byte identities, allowed metadata transformations and fixed-fixture\n"
+        "equivalence receipts are registered in `ARTIFACT_MANIFEST.json` and checked by\n"
+        "`python3 -B verify_bundle.py`.\n\n"
+        "License status: no project license is granted by this repository. Public\n"
+        "readability does not grant rights to reuse, redistribute or commercially use\n"
+        "the project materials. The applicable boundaries for third-party software,\n"
+        "models and data are recorded in `NOTICE`.\n"
     ).encode("utf-8")
 
 
-def _updated_root_readme(payload: bytes) -> bytes:
+def _release_ready_root_readme(payload: bytes) -> bytes:
     try:
-        text = payload.decode("utf-8")
+        payload.decode("utf-8")
     except UnicodeDecodeError:
         raise AssemblyError("source README is not UTF-8") from None
-    replacements = (
-        (
-            "The candidate is **not ready for public release**. Twenty small learned artifacts\n"
-            "are deliberately absent, the project license has not been selected, and the\n",
-            "The candidate is **not ready for public release**. Twenty public-normalized learned\n"
-            "artifacts and their receipts are present, but no project license has been selected, and the\n",
-        ),
-        (
-            "- exact expected identities for the twenty missing learned artifacts across\n"
-            "  five random seeds;\n",
-            "- separate private-source and public-normalized identities for twenty learned\n"
-            "  artifacts across five random seeds, with canonical receipts;\n",
-        ),
-        (
-            "1. **Structure audit (works now).** Checks file closure, hashes, import closure,\n"
-            "   relative paths, anonymous-release rules, and Python syntax while explicitly\n"
-            "   acknowledging that the learned artifacts are absent.\n",
-            "1. **Structure audit (works now).** Checks file closure, hashes, import closure,\n"
-            "   relative paths, anonymous-release rules, Python syntax, and all twenty\n"
-            "   normalized artifact/receipt registrations.\n",
-        ),
-        (
-            "3. **Core scientific replay (blocked in this candidate).** Requires the exact\n"
-            "   learned JSON artifacts, nuScenes data, and four expert result JSONs.\n",
-            "3. **Core scientific replay (external inputs required).** The learned JSONs are\n"
-            "   present; replay additionally requires nuScenes data and four expert result JSONs.\n",
-        ),
-        (
-            "python3 -B verify_bundle.py --allow-missing-models\n",
-            "python3 -B verify_bundle.py\n",
-        ),
-        (
-            "  tests.test_normalize_learned_artifact\n",
-            "  tests.test_normalize_learned_artifact \\\n"
-            "  tests.test_assemble_normalized_release\n",
-        ),
-        (
-            "The first command should return zero and report twenty acknowledged missing\n"
-            "artifacts. The default command is intentionally stricter:\n\n"
-            "```bash\n"
-            "python3 -B verify_bundle.py\n"
-            "```\n\n"
-            "It must return nonzero until every public-normalized artifact identity and its\n"
-            "parameter/fixture-equivalence proof have been registered and the corresponding\n"
-            "files are present. ",
-            "The verifier must return zero with no missing-artifact warnings. Every\n"
-            "public-normalized artifact identity, receipt, and parameter/fixture-equivalence\n"
-            "proof is registered and present. ",
-        ),
-    )
-    for old, new in replacements:
-        count = text.count(old)
-        if count != 1:
-            raise AssemblyError("source README recovery-state text differs from the audited template")
-        text = text.replace(old, new)
-    return text.encode("utf-8")
+    return payload
 
 
 def _checksum_payload(files: Dict[str, bytes]) -> bytes:
@@ -823,8 +773,11 @@ def _prepare_output_payloads(
     output.update(additions)
     output_manifest = copy.deepcopy(manifest)
     output_manifest["public_artifacts"] = public_entries
-    # The scientific-source registrations, their missing-source state, and all
-    # release/license/double-blind gates deliberately remain unchanged.
+    output_manifest["release_status"] = PUBLIC_RELEASE_STATUS
+    output_manifest["license_status"] = PUBLIC_LICENSE_STATUS
+    output_manifest["double_blind_status"] = PUBLIC_IDENTITY_STATUS
+    # The scientific-source registrations and their missing-source state remain
+    # unchanged while the assembled directory becomes a public companion.
     if output_manifest.get("artifacts") != manifest.get("artifacts"):
         raise AssertionError("private source registrations changed internally")
     output["ARTIFACT_MANIFEST.json"] = pretty_json_bytes(output_manifest)
@@ -833,7 +786,7 @@ def _prepare_output_payloads(
     source_readme = source_files.get("README.md")
     if source_readme is None:
         raise AssemblyError("source candidate lacks README.md")
-    output["README.md"] = _updated_root_readme(source_readme)
+    output["README.md"] = _release_ready_root_readme(source_readme)
     output["SHA256SUMS"] = _checksum_payload(output)
     return output
 
@@ -1100,9 +1053,9 @@ def assemble_candidate(*, source_candidate: Path, stages_root: Path, output_cand
         "receipt_count": len(public_entries),
         "candidate_file_count": len(payloads),
         "sha256sums_sha256": sha256_bytes(payloads["SHA256SUMS"]),
-        "release_status": "not_ready_for_public_release",
-        "license_status": "pending_human_selection",
-        "double_blind_status": "private_local_candidate_only",
+        "release_status": PUBLIC_RELEASE_STATUS,
+        "license_status": PUBLIC_LICENSE_STATUS,
+        "double_blind_status": PUBLIC_IDENTITY_STATUS,
     }
 
 

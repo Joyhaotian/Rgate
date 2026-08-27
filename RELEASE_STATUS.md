@@ -1,27 +1,22 @@
 # Release status
 
-Status: **NOT_READY_FOR_PUBLIC_RELEASE**
+Status: **PUBLIC_RESEARCH_CODE_COMPANION**
 
-Scope: local, private review only.
+Scope: publicly readable R-GATE scripts, an example configuration template,
+public-normalized learned artifacts and integrity checks accompanying the
+dissertation.
 
-Closed artifact gate:
+This repository is not a self-contained end-to-end reproducibility package.
+It does not include nuScenes data or annotations, cached expert predictions,
+upstream detector source trees or checkpoints, or the original locked run
+plans and full experiment inputs.
 
-- all twenty learned JSON artifacts are present only in public-normalized form;
-- all twenty source/public parameter and fixed-fixture receipts are registered;
-- the private scientific-source identities remain preserved separately.
+The twenty learned JSON artifacts are present only in public-normalized form.
+Their byte identities, allowed metadata transformations and fixed-fixture
+equivalence receipts are registered in `ARTIFACT_MANIFEST.json` and checked by
+`python3 -B verify_bundle.py`.
 
-Open gates:
-
-- no project license has been selected;
-- the double-blind publication gate is still open;
-- third-party dependency and checkpoint terms require final human review;
-- hashed pip and Linux-64 Conda locks now cover the declared core replay
-  environment; optional LightGBM, license attribution and any platform/solver
-  review remain open;
-- private full-run orchestration was excluded and needs a clean public wrapper;
-- no independent end-to-end replay has been completed from this directory.
-
-The normalized artifacts close only the learned-artifact availability gate.
-Public release still requires every open gate above to close, a clean-tree
-re-audit, and a fresh human publication decision. Until then, do not push,
-mirror, attach, or publish this directory.
+License status: no project license is granted by this repository. Public
+readability does not grant rights to reuse, redistribute or commercially use
+the project materials. The applicable boundaries for third-party software,
+models and data are recorded in `NOTICE`.

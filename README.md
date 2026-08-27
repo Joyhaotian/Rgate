@@ -4,7 +4,9 @@ R-GATE is a **diagnosis-driven, decision-level arbitration framework** for camer
 
 Rather than retraining another large perception network, R-GATE operates on cached predictions from frozen camera and camera–radar experts. It combines cross-expert agreement with physically interpretable radar evidence, including radar support, spatial context, radar cross section (RCS), and ego-motion-compensated planar-velocity agreement.
 
-This repository contains the scientific replay and evaluation code used for the R-GATE experiments, including expert-result fusion, radar-sidecar construction, arbiter training, calibration, official nuScenes evaluation, multi-seed replay, and paired scene-bootstrap analysis.
+This repository is a research-code companion to the accompanying dissertation. It contains the scripts, public-normalized learned artifacts and integrity checks used for the R-GATE experiments, including expert-result fusion, radar-sidecar construction, arbiter training, calibration, official nuScenes evaluation, multi-seed replay and paired scene-bootstrap analysis.
+
+It is not a self-contained end-to-end reproducibility package. The nuScenes data, cached expert predictions, upstream detector code and checkpoints, and the original locked run plans are not distributed here.
 
 ---
 
@@ -22,8 +24,8 @@ This repository contains the scientific replay and evaluation code used for the 
 * **Lightweight learned arbiter**
   A compact MLP re-scores candidate hypotheses without retraining the underlying 3D perception networks.
 
-* **Reproducible evaluation**
-  The repository provides locked configurations, bundle verification, synthetic smoke tests, official nuScenes evaluation utilities, and multi-seed statistical replay tools.
+* **Auditable evaluation support**
+  The repository provides an example configuration template, bundle verification, synthetic smoke tests, official nuScenes evaluation utilities and multi-seed statistical analysis tools.
 
 ---
 
@@ -31,7 +33,7 @@ This repository contains the scientific replay and evaluation code used for the 
 
 ```text
 Rgate/
-├── configs/        # Example and locked experiment configurations
+├── configs/        # Example path template; locked run plans are not distributed
 ├── models/         # Public-normalized learned artifacts across random seeds
 ├── scripts/        # Fusion, cache construction, arbiter training and analysis
 ├── tools/          # Evaluation and supporting utilities
@@ -56,7 +58,7 @@ cd Rgate
 A dedicated Conda environment is recommended:
 
 ```bash
-conda create -n rgate python=3.10 -y
+conda create -n rgate python=3.8 -y
 conda activate rgate
 ```
 
@@ -89,14 +91,16 @@ These tests are intended to verify the repository structure and core execution p
 
 # 📦 External Data and Predictions
 
-The complete scientific replay requires external resources that are **not distributed directly in this repository**.
+The published scripts can be exercised only with external resources that are **not distributed directly in this repository**. Reproducing the exact dissertation runs additionally requires the original locked run plans, which are not published here.
 
 You will need:
 
 1. **nuScenes v1.0**
 2. The corresponding nuScenes metadata and detection-evaluation environment
 3. Cached prediction JSON files from the detector experts used by R-GATE
-4. The required experiment configurations and learned artifacts supplied in this repository
+4. A local experiment configuration derived from `configs/repro.example.json`
+
+The repository includes public-normalized learned artifacts, but `configs/repro.example.json` is a relative-path template rather than a locked dissertation run plan.
 
 The locked expert pool used in the dissertation consists of:
 
@@ -109,7 +113,7 @@ R-GATE operates on their exported nuScenes-format predictions; the underlying de
 
 ---
 
-# 🔬 Running the Scientific Replay
+# 🔬 Running the Published Scripts
 
 The core scripts are located in:
 
@@ -124,9 +128,9 @@ python scripts/fuse_nuscenes_expert_results.py \
     [experiment arguments]
 ```
 
-The exact inputs depend on the experiment configuration and the locations of the nuScenes data and cached expert predictions.
+The exact inputs depend on a locally prepared experiment configuration and the locations of the nuScenes data and cached expert predictions.
 
-For reproducibility, prefer using the supplied configuration files rather than manually reconstructing experiment parameters.
+Use `configs/repro.example.json` as a path-safe template. It does not encode the locked operating points or full inputs used for the dissertation results.
 
 ---
 
@@ -162,7 +166,7 @@ The pipeline is designed so that most arbitration experiments can operate on cac
 
 # 📊 Main Results
 
-The principal locked validation results reported in the dissertation are:
+The following are locked validation results reported in the dissertation. They are not one-command outputs from a fresh checkout of this repository:
 
 | Configuration                               |     mAP ↑ |     NDS ↑ |    mAVE ↓ |
 | ------------------------------------------- | --------: | --------: | --------: |
@@ -232,11 +236,13 @@ Similarly, the explicit-radar ablation measures the marginal contribution of the
 
 # 🧪 Reproducibility
 
-The project is designed around cached predictions and lightweight arbitration so that the decision-level experiments can be repeated without rerunning all detector inference.
+The project is designed around cached predictions and lightweight arbitration so that portions of the decision-level experiments can be inspected or repeated without rerunning all detector inference.
+
+This repository is a research-code companion, not a self-contained end-to-end reproduction package. It does not distribute the nuScenes data, cached expert predictions, upstream checkpoints or the original locked run plans.
 
 Where available, experiment outputs are associated with:
 
-* fixed configurations,
+* the example configuration template,
 * expert-pool manifests,
 * learned artifacts,
 * run metadata,
@@ -269,7 +275,7 @@ If you use R-GATE or this repository in academic work, please cite the accompany
 
 # 📜 License
 
-Please refer to `LICENSE_PENDING.md` or the finalized `LICENSE` file for the applicable usage terms.
+No project license is granted by this repository. The code is publicly readable as a research companion; reuse, redistribution or commercial use requires separate authorization from the rights holder. Third-party terms and data restrictions remain described in `NOTICE`.
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "schema_version": "rgate_release_source_manifest_v1",
-  "selection_status": "scientific_core_candidate",
+  "selection_status": "public_scientific_core_snapshot",
   "entries": [
     {"source_repo_path":"scripts/check_nuscenes_result_json_scope_stream.py","source_size_bytes":7710,"source_sha256":"a85821aacdb7e98c630dfc81466275a23e5c8ac1490217d77ffacccb4c600a24","bundled_path":"scripts/check_nuscenes_result_json_scope_stream.py","bundled_size_bytes":7710,"bundled_sha256":"a85821aacdb7e98c630dfc81466275a23e5c8ac1490217d77ffacccb4c600a24","transformation":"byte_copy"},
     {"source_repo_path":"scripts/fuse_nuscenes_expert_results.py","source_size_bytes":18986,"source_sha256":"daed1968e2cfc21c9340e93492dcb7d2aee591df57eaa6034c299caa5bceb3f1","bundled_path":"scripts/fuse_nuscenes_expert_results.py","bundled_size_bytes":18990,"bundled_sha256":"d480d6ab4b5ad805b3222137b38ca0a4ad00ed45716eb048f92876cca25d5b09","transformation":"help_text_relative_paths_only"},

@@ -99,79 +99,25 @@ def refresh_hashes(root):
     for path in sorted(root.rglob("*")):
         if not path.is_file() or path.name == "SHA256SUMS":
             continue
-        if any(part in {"__pycache__", ".pytest_cache", ".mypy_cache"} for part in path.parts):
+        if any(part in {".git", "__pycache__", ".pytest_cache", ".mypy_cache"} for part in path.parts):
             continue
         relative = path.relative_to(root).as_posix()
+        if relative.startswith(("data/", "outputs/", "artifacts/cache/", "artifacts/expert_results/", "artifacts/metadata/")):
+            continue
         rows.append("%s  %s" % (hashlib.sha256(path.read_bytes()).hexdigest(), relative))
     (root / "SHA256SUMS").write_text("\n".join(rows) + "\n", encoding="utf-8")
 
 
-def private_readme_fixture(root):
-    """Return the audited private-source README for copied-candidate tests.
+def source_readme_fixture(root):
+    """Return the release-ready README used by the synthetic source fixture.
 
-    The assembler test suite is also run against an already assembled public
-    candidate.  Reversing only the assembler's documented README substitutions
-    keeps that copied tree a valid private-source fixture without depending on
-    an external absolute path or changing production assembly behavior.
+    The source fixture is intentionally not a publishable directory because
+    its manifest remains prepublication-only until the assembler has verified
+    and copied all twenty normalized artifacts. Its README is nevertheless
+    release-ready, so the assembled output can be verified without a fragile
+    reverse transformation of documentation text.
     """
-    text = (root / "README.md").read_text(encoding="utf-8")
-    if "Twenty small learned artifacts\nare deliberately absent" in text:
-        return text.encode("utf-8")
-    replacements = (
-        (
-            "The candidate is **not ready for public release**. Twenty public-normalized learned\n"
-            "artifacts and their receipts are present, but no project license has been selected, and the\n",
-            "The candidate is **not ready for public release**. Twenty small learned artifacts\n"
-            "are deliberately absent, the project license has not been selected, and the\n",
-        ),
-        (
-            "- separate private-source and public-normalized identities for twenty learned\n"
-            "  artifacts across five random seeds, with canonical receipts;\n",
-            "- exact expected identities for the twenty missing learned artifacts across\n"
-            "  five random seeds;\n",
-        ),
-        (
-            "1. **Structure audit (works now).** Checks file closure, hashes, import closure,\n"
-            "   relative paths, anonymous-release rules, Python syntax, and all twenty\n"
-            "   normalized artifact/receipt registrations.\n",
-            "1. **Structure audit (works now).** Checks file closure, hashes, import closure,\n"
-            "   relative paths, anonymous-release rules, and Python syntax while explicitly\n"
-            "   acknowledging that the learned artifacts are absent.\n",
-        ),
-        (
-            "3. **Core scientific replay (external inputs required).** The learned JSONs are\n"
-            "   present; replay additionally requires nuScenes data and four expert result JSONs.\n",
-            "3. **Core scientific replay (blocked in this candidate).** Requires the exact\n"
-            "   learned JSON artifacts, nuScenes data, and four expert result JSONs.\n",
-        ),
-        (
-            "python3 -B verify_bundle.py\n",
-            "python3 -B verify_bundle.py --allow-missing-models\n",
-        ),
-        (
-            "  tests.test_normalize_learned_artifact \\\n"
-            "  tests.test_assemble_normalized_release\n",
-            "  tests.test_normalize_learned_artifact\n",
-        ),
-        (
-            "The verifier must return zero with no missing-artifact warnings. Every\n"
-            "public-normalized artifact identity, receipt, and parameter/fixture-equivalence\n"
-            "proof is registered and present. ",
-            "The first command should return zero and report twenty acknowledged missing\n"
-            "artifacts. The default command is intentionally stricter:\n\n"
-            "```bash\n"
-            "python3 -B verify_bundle.py\n"
-            "```\n\n"
-            "It must return nonzero until every public-normalized artifact identity and its\n"
-            "parameter/fixture-equivalence proof have been registered and the corresponding\n"
-            "files are present. ",
-        ),
-    )
-    for public, private in replacements:
-        if text.count(public) != 1:
-            raise AssertionError("assembled README cannot be reversed into the private fixture")
-        text = text.replace(public, private)
-    return text.encode("utf-8")
+    return (root / "README.md").read_bytes()
 
 
 class NormalizedReleaseAssemblerTest(unittest.TestCase):
@@ -187,7 +133,7 @@ class NormalizedReleaseAssemblerTest(unittest.TestCase):
             cls.baseline_candidate,
             ignore=shutil.ignore_patterns("__pycache__", ".pytest_cache", ".mypy_cache"),
         )
-        (cls.baseline_candidate / "README.md").write_bytes(private_readme_fixture(ROOT))
+        (cls.baseline_candidate / "README.md").write_bytes(source_readme_fixture(ROOT))
         # The public candidate contains real normalized models; this fixture
         # builds a clean private-source baseline before injecting synthetic
         # registrations and stages.
@@ -202,6 +148,9 @@ class NormalizedReleaseAssemblerTest(unittest.TestCase):
 
         manifest_path = cls.baseline_candidate / "ARTIFACT_MANIFEST.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        manifest["release_status"] = assembler.PRIVATE_SOURCE_RELEASE_STATUS
+        manifest["license_status"] = assembler.PRIVATE_SOURCE_LICENSE_STATUS
+        manifest["double_blind_status"] = assembler.PRIVATE_SOURCE_IDENTITY_STATUS
         registrations = []
         private_paths = {}
         for index, (artifact_id, relative) in enumerate(sorted(assembler.EXPECTED_LAYOUT.items())):
@@ -308,9 +257,10 @@ class NormalizedReleaseAssemblerTest(unittest.TestCase):
             check=False,
         )
         self.assertEqual(verifier.returncode, 0, verifier.stdout + verifier.stderr)
-        self.assertIn("NOT_READY_FOR_PUBLIC_RELEASE", (self.output / "RELEASE_STATUS.md").read_text(encoding="utf-8"))
-        self.assertIn("pending_human_selection", json.dumps(manifest))
-        self.assertIn("private_local_candidate_only", json.dumps(manifest))
+        self.assertIn("PUBLIC_RESEARCH_CODE_COMPANION", (self.output / "RELEASE_STATUS.md").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["release_status"], assembler.PUBLIC_RELEASE_STATUS)
+        self.assertEqual(manifest["license_status"], assembler.PUBLIC_LICENSE_STATUS)
+        self.assertEqual(manifest["double_blind_status"], assembler.PUBLIC_IDENTITY_STATUS)
 
     def test_missing_stage_is_rejected_without_output(self):
         shutil.rmtree(self.stages / "seed_04_radar_model")

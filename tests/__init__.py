@@ -1,1 +1,1 @@
-"""Synthetic tests for the private reproducibility candidate."""
+"""Synthetic tests for the public research-code companion."""

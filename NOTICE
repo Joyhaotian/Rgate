@@ -1,8 +1,8 @@
-R-GATE reproducibility candidate
+R-GATE public research-code archive
 
 Third-party software, data, and model artifacts
 
-This private candidate contains project pipeline scripts. It does not contain
+This public research-code archive contains project pipeline scripts. It does not contain
 or redistribute (a) the nuScenes dataset or annotations, (b) nuScenes-derived
 expert prediction JSONs, (c) CRN, StreamPETR, or RepDETR3D source trees, or
 (d) any external checkpoint. Those materials are not licensed by R-GATE and
@@ -88,8 +88,8 @@ the terms applicable to them. Commercial or otherwise uncertain uses should be
 clarified directly with Motional. R-GATE does not sublicense the dataset.
 
 LightGBM, NumPy, and other runtime dependencies remain subject to their own
-upstream terms. Their complete attribution and transitive dependency closure
-remain a public-release gate.
+upstream terms. Users should review their applicable attribution and
+transitive dependency obligations before redistribution.
 
 No third-party software, dataset, prediction artifact, or checkpoint is
-relicensed by this candidate.
+relicensed by this archive.

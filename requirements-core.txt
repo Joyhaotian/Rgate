@@ -1,5 +1,5 @@
-# Direct scientific replay pins from the registered environment. A complete
-# Linux lock file remains a public-release gate; these are not a transitive lock.
+# Direct scientific replay pins from the registered environment. These are not
+# a complete transitive dependency lock.
 numpy==1.23.5
 nuscenes-devkit==1.1.11
 scipy==1.10.1

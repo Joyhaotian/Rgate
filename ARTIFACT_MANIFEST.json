@@ -1,8 +1,8 @@
 {
   "schema_version": "rgate_release_artifact_manifest_v2",
-  "release_status": "not_ready_for_public_release",
-  "license_status": "pending_human_selection",
-  "double_blind_status": "private_local_candidate_only",
+  "release_status": "public_research_code_companion",
+  "license_status": "no_project_license_granted",
+  "double_blind_status": "public_identity_disclosed",
   "normalization_contract": {
     "schema_version": "rgate_release_metadata_normalization_v1",
     "allowed_changed_json_pointers": {
