@@ -121,16 +121,11 @@ The core scripts are located in:
 scripts/
 ```
 
-For example, expert predictions can be combined using:
+The supported command sequence, external-input layout and concrete command
+templates are documented in [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md).
 
-```bash
-python scripts/fuse_nuscenes_expert_results.py \
-    [experiment arguments]
-```
-
-The exact inputs depend on a locally prepared experiment configuration and the locations of the nuScenes data and cached expert predictions.
-
-Use `configs/repro.example.json` as a path-safe template. It does not encode the locked operating points or full inputs used for the dissertation results.
+Use `configs/repro.example.json` as a path-safe template. It does not encode the
+locked operating points or full inputs used for the dissertation results.
 
 ---
 
@@ -253,8 +248,13 @@ Where available, experiment outputs are associated with:
 Please verify the repository bundle before scientific replay:
 
 ```bash
-python verify_bundle.py
+python -B verify_bundle.py --run-smoke
 ```
+
+For conditional replay with locally prepared nuScenes data and expert
+predictions, follow [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md). Exact numerical
+reproduction additionally requires the locked configurations and exact inputs
+provided in the separately submitted project code bundle.
 
 ---
 
