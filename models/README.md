@@ -7,6 +7,10 @@ identities remain in `ARTIFACT_MANIFEST.json` with
 `availability: missing_pending_verified_copy`; that field describes the
 non-public source, not the normalized file beside this document.
 
+The Apache-2.0 license for the original R-GATE source code does not grant
+rights in these learned JSON artifacts. Consult `NOTICE` and the applicable
+upstream terms before any use or redistribution.
+
 Each `public_artifacts` registration records the normalized byte identity,
 the exact allowed metadata pointers, equal source/public canonical
 inference-parameter hashes, and the SHA-256 of its receipt. The receipt files

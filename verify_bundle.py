@@ -73,7 +73,7 @@ RUNTIME_PREFIXES = {
 }
 TRANSIENT_DIR_NAMES = {"__pycache__", ".pytest_cache", ".mypy_cache"}
 PUBLIC_RELEASE_STATUS = "public_research_code_companion"
-PUBLIC_LICENSE_STATUS = "no_project_license_granted"
+PUBLIC_LICENSE_STATUS = "apache-2.0_code_and_docs_only"
 PUBLIC_IDENTITY_STATUS = "public_identity_disclosed"
 SENSITIVE_ROOT_RE = re.compile(
     r"/(?:(?:" + "ho" + "me" + r")|(?:" + "m" + "nt" + r")|(?:" + "U" + "sers" + r"))(?:/|\b)",
@@ -644,7 +644,8 @@ def verify_json_and_relative_paths(errors: list[str]) -> None:
 def verify_release_state_documents(errors: list[str]) -> None:
     required_fragments = {
         "README.md": ("research-code companion", "not a self-contained end-to-end reproducibility package"),
-        "RELEASE_STATUS.md": ("status: **public_research_code_companion**", "no project license"),
+        "RELEASE_STATUS.md": ("status: **public_research_code_companion**", "apache-2.0"),
+        "LICENSE": ("apache license", "version 2.0, january 2004"),
         "NOTICE": ("public research-code archive", "not sublicense the dataset"),
     }
     for relative, fragments in required_fragments.items():

@@ -275,7 +275,7 @@ If you use R-GATE or this repository in academic work, please cite the accompany
 
 # 📜 License
 
-No project license is granted by this repository. The code is publicly readable as a research companion; reuse, redistribution or commercial use requires separate authorization from the rights holder. Third-party terms and data restrictions remain described in `NOTICE`.
+The original R-GATE source code, documentation and configuration templates are licensed under [Apache-2.0](LICENSE). The license does not grant rights in nuScenes data, cached expert predictions, upstream detector code or checkpoints, or the data-derived learned JSON artifacts in `models/`. Their applicable boundaries remain described in `NOTICE`.
 
 ---
 

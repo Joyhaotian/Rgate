@@ -1,5 +1,16 @@
 R-GATE public research-code archive
 
+Copyright 2026 Haotian Chen
+
+License scope
+
+The Apache License 2.0 in `LICENSE` applies to the original R-GATE source
+code, original documentation, and configuration templates in this repository.
+It does not grant rights in the nuScenes data, dataset-derived artifacts,
+cached expert predictions, third-party software, detector checkpoints, or the
+learned JSON artifacts under `models/`. Those materials remain subject to their
+respective upstream terms.
+
 Third-party software, data, and model artifacts
 
 This public research-code archive contains project pipeline scripts. It does not contain

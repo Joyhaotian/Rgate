@@ -1,7 +1,7 @@
 {
   "schema_version": "rgate_release_artifact_manifest_v2",
   "release_status": "public_research_code_companion",
-  "license_status": "no_project_license_granted",
+  "license_status": "apache-2.0_code_and_docs_only",
   "double_blind_status": "public_identity_disclosed",
   "normalization_contract": {
     "schema_version": "rgate_release_metadata_normalization_v1",

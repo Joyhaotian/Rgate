@@ -16,7 +16,8 @@ Their byte identities, allowed metadata transformations and fixed-fixture
 equivalence receipts are registered in `ARTIFACT_MANIFEST.json` and checked by
 `python3 -B verify_bundle.py`.
 
-License status: no project license is granted by this repository. Public
-readability does not grant rights to reuse, redistribute or commercially use
-the project materials. The applicable boundaries for third-party software,
-models and data are recorded in `NOTICE`.
+License status: the original R-GATE source code, documentation and configuration
+templates are released under Apache-2.0. The license does not grant rights in
+nuScenes data, cached expert predictions, upstream detector code or
+checkpoints, or the data-derived learned JSON artifacts in `models/`. The
+applicable boundaries are recorded in `NOTICE`.
